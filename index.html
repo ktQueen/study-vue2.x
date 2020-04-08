@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div v-bind:id="bg1">{{msg}}</div>
+        <div>{{(count+1)*100}}</div>
+        <div v-html="template"></div>
+        <div><a v-bind:href="url"></a></div>
+        <div><button v-on:click="submit">按钮</button></div>
+        <div>{{msg1}}</div>
+    </div>
+    <script>
+        var str='sdsdsd'
+        var app=new Vue({
+            el:'#app',
+            data(){
+                return {
+                    bg1:'app-bind',
+                    msg:'123',
+                    count:1,
+                    template:'<div>ahhh函数</div>',
+                    url:"http://www.baidu.com"
+                }
+            },
+            methods:{
+                submit:function(){
+                    this.count++
+                }
+            },
+            // 只能监听绑定的值
+            // 监听的是一个变量，可能是单一的变量也可能是一个数组
+            watch:{
+                msg:function(newVal,oldVal){
+                    console.log('newVal'+newVal);
+                    console.log('oldVal'+oldVal);
+                }
+            },
+            // 里面的任意值变化都能监听
+            // 可以监听很多个变量，但是这个变量一定是在vue实例里面的 
+            computed:{
+                msg1:function(){
+                    return 'computed'+this.count+this.msg+str
+                }
+            }
+        })
+    </script>
+</body>
+</html>
